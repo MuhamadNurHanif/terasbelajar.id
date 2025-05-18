@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teras Belajar - Komunitas Baca Buku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero-parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-item {
+            transition: opacity 1s ease-in-out;
+        }
+
+        .social-float {
+            transition: all 0.3s ease;
+        }
+
+        .social-float:hover {
+            transform: scale(1.1);
+        }
+
+        .social-expand {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .social-expand.active {
+            max-height: 100px;
+        }
+
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #000;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .language-container:hover .language-dropdown {
+            display: block;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-in;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-parallax,
+            .parallax-section {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <span class="text-2xl font-bold text-black">terasbelajar.id</span>
+            </a>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="nav-link font-medium text-black hover:text-gray-700">Beranda</a>
+                <a href="#kegiatan" class="nav-link font-medium text-black hover:text-gray-700">Kegiatan</a>
+                <a href="#artikel" class="nav-link font-medium text-black hover:text-gray-700">Artikel</a>
+                <a href="#tentang" class="nav-link font-medium text-black hover:text-gray-700">Tentang Kami</a>
+                <a href="#kontak" class="nav-link font-medium text-black hover:text-gray-700">Hubungi Kami</a>
+            </div>
+
+            <div class="language-container relative">
+                <button class="flex items-center space-x-1 text-black">
+                    <span>ID</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </button>
+                <div class="language-dropdown rounded-md">
+                    <a href="#" class="block px-4 py-2 text-black hover:bg-gray-100">Indonesia (ID)</a>
+                    <a href="#" class="block px-4 py-2 text-black hover:bg-gray-100">English (EN)</a>
+                </div>
+            </div>
+
+            <button class="md:hidden text-black">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white px-4 py-2 border-t">
+            <a href="#" class="block py-2 text-black">Beranda</a>
+            <a href="#kegiatan" class="block py-2 text-black">Kegiatan</a>
+            <a href="#artikel" class="block py-2 text-black">Artikel</a>
+            <a href="#tentang" class="block py-2 text-black">Tentang Kami</a>
+            <a href="#kontak" class="block py-2 text-black">Hubungi Kami</a>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <section
+        class="hero-parallax bg-black text-white h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+
+        <div class="carousel-container relative w-full h-full">
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-cover bg-center opacity-0 transition-opacity duration-1000"
+                style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                <div class="container mx-auto px-4 text-center z-10">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Membaca Membuka Dunia</h1>
+                    <p class="text-xl md:text-2xl mb-8">Bergabunglah dengan komunitas pembaca kami</p>
+                    <a href="#"
+                        class="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition">Daftar
+                        Sekarang</a>
+                </div>
+            </div>
+
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-cover bg-center opacity-0 transition-opacity duration-1000"
+                style="background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                <div class="container mx-auto px-4 text-center z-10">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Diskusi Buku Berkualitas</h1>
+                    <p class="text-xl md:text-2xl mb-8">Temukan wawasan baru melalui diskusi kami</p>
+                    <a href="#"
+                        class="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition">Lihat
+                        Jadwal</a>
+                </div>
+            </div>
+
+            <div class="carousel-item absolute inset-0 flex items-center justify-center bg-cover bg-center opacity-0 transition-opacity duration-1000"
+                style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                <div class="container mx-auto px-4 text-center z-10">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Perpustakaan Komunitas</h1>
+                    <p class="text-xl md:text-2xl mb-8">Akses koleksi buku kami secara gratis</p>
+                    <a href="#"
+                        class="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition">Jelajahi
+                        Koleksi</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-10">
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white opacity-50 focus:outline-none"></button>
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white opacity-50 focus:outline-none"></button>
+            <button class="carousel-dot w-3 h-3 rounded-full bg-white opacity-50 focus:outline-none"></button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="tentang" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Tentang Teras Belajar</h2>
+                    <p class="text-lg mb-6 text-gray-700">Teras Belajar adalah komunitas literasi yang berkomitmen untuk
+                        meningkatkan minat baca dan diskusi buku di Indonesia. Kami percaya bahwa membaca adalah jendela
+                        dunia.</p>
+                    <p class="text-lg mb-8 text-gray-700">Sejak didirikan pada tahun 2015, kami telah menyelenggarakan
+                        berbagai kegiatan seperti diskusi buku, bedah karya, workshop menulis, dan program donasi buku
+                        untuk daerah terpencil.</p>
+                    <a href="#"
+                        class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Pelajari
+                        Lebih Lanjut</a>
+                </div>
+                <div class="md:w-1/2 md:pl-12 fade-in">
+                    <div class="bg-gray-100 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Komunitas Teras Belajar" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Parallax -->
+    <section id="kegiatan" class="parallax-section py-32 bg-white text-black relative"
+        style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="parallax-overlay bg-white opacity-90"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">Kegiatan Kami</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition fade-in">
+                    <div class="text-4xl mb-4 text-black">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Diskusi Buku</h3>
+                    <p class="text-gray-700">Diskusi rutin setiap minggu dengan pembicara ahli dan penulis buku.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition fade-in">
+                    <div class="text-4xl mb-4 text-black">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Workshop Menulis</h3>
+                    <p class="text-gray-700">Pelatihan menulis kreatif dan teknis untuk berbagai genre.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition fade-in">
+                    <div class="text-4xl mb-4 text-black">
+                        <i class="fas fa-book-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Donasi Buku</h3>
+                    <p class="text-gray-700">Program pengumpulan dan distribusi buku ke daerah yang membutuhkan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="artikel" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">Artikel Terbaru</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition fade-in">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Artikel 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">15 Juni 2023</span>
+                        <h3 class="text-xl font-bold my-3">5 Buku yang Mengubah Cara Pandang</h3>
+                        <p class="text-gray-700 mb-4">Temukan buku-buku yang dapat mengubah perspektif Anda tentang
+                            kehidupan dan dunia.</p>
+                        <a href="#" class="text-black font-medium hover:underline">Baca Selengkapnya</a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition fade-in">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Artikel 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">8 Juni 2023</span>
+                        <h3 class="text-xl font-bold my-3">Membaca Cepat: Teknik dan Manfaatnya</h3>
+                        <p class="text-gray-700 mb-4">Pelajari teknik membaca cepat yang efektif tanpa mengurangi
+                            pemahaman.</p>
+                        <a href="#" class="text-black font-medium hover:underline">Baca Selengkapnya</a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition fade-in">
+                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Artikel 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">1 Juni 2023</span>
+                        <h3 class="text-xl font-bold my-3">Membangun Kebiasaan Membaca yang Konsisten</h3>
+                        <p class="text-gray-700 mb-4">Tips dan trik untuk membangun kebiasaan membaca yang bertahan
+                            lama.</p>
+                        <a href="#" class="text-black font-medium hover:underline">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <a href="#"
+                    class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Lihat
+                    Semua Artikel</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Parallax -->
+    <section class="parallax-section py-32 text-white relative"
+        style="background-image: url('https://images.unsplash.com/photo-1519682337058-a94d519337bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="parallax-overlay bg-black opacity-70"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">Apa Kata Mereka</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white bg-opacity-10 p-8 rounded-lg backdrop-filter backdrop-blur-sm fade-in">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="mb-6">"Teras Belajar telah mengubah cara saya memandang buku. Diskusi yang mendalam
+                        membuat saya lebih kritis dalam membaca."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Testimoni 1"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah Wijaya</h4>
+                            <p class="text-sm opacity-80">Anggota sejak 2018</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 p-8 rounded-lg backdrop-filter backdrop-blur-sm fade-in">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="mb-6">"Workshop menulis di Teras Belajar sangat membantu saya dalam mengembangkan
+                        keterampilan menulis. Pembicaranya sangat kompeten."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Testimoni 2"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Budi Santoso</h4>
+                            <p class="text-sm opacity-80">Penulis Pemula</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 p-8 rounded-lg backdrop-filter backdrop-blur-sm fade-in">
+                    <div class="text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="mb-6">"Program donasi buku mereka sangat inspiratif. Saya senang bisa berkontribusi untuk
+                        meningkatkan literasi di daerah terpencil."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Testimoni 3"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Dewi Rahayu</h4>
+                            <p class="text-sm opacity-80">Relawan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Hubungi Kami</h2>
+                    <p class="text-lg mb-8 text-gray-700">Punya pertanyaan atau ingin bergabung dengan komunitas kami?
+                        Silakan hubungi melalui formulir atau informasi kontak di bawah ini.</p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="text-black mr-4 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Alamat</h4>
+                                <p class="text-gray-700">Jl. Literasi No. 123, Jakarta Pusat, Indonesia</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="text-black mr-4 mt-1">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-700">info@terasbelajar.id</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="text-black mr-4 mt-1">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Telepon</h4>
+                                <p class="text-gray-700">+62 21 1234 5678</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 md:pl-12 fade-in">
+                    <form class="bg-gray-50 p-8 rounded-lg shadow-md">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
+                            <input type="text" id="name"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subjek</label>
+                            <input type="text" id="subject"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Pesan</label>
+                            <textarea id="message" rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition w-full">Kirim
+                            Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-black text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Berlangganan Newsletter Kami</h2>
+            <p class="mb-8 max-w-2xl mx-auto">Dapatkan update terbaru tentang kegiatan, artikel, dan acara kami langsung
+                ke inbox Anda.</p>
+
+            <form class="max-w-md mx-auto flex fade-in">
+                <input type="email" placeholder="Alamat email Anda"
+                    class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-black">
+                <button type="submit"
+                    class="bg-white text-black px-6 py-3 rounded-r-lg font-medium hover:bg-gray-200 transition">Berlangganan</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">terasbelajar.id</h3>
+                    <p class="mb-4">Komunitas literasi yang berdedikasi untuk meningkatkan minat baca dan diskusi buku
+                        di Indonesia.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Navigasi</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-gray-300">Beranda</a></li>
+                        <li><a href="#kegiatan" class="hover:text-gray-300">Kegiatan</a></li>
+                        <li><a href="#artikel" class="hover:text-gray-300">Artikel</a></li>
+                        <li><a href="#tentang" class="hover:text-gray-300">Tentang Kami</a></li>
+                        <li><a href="#kontak" class="hover:text-gray-300">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Kegiatan</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-gray-300">Diskusi Buku</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Workshop Menulis</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Donasi Buku</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Book Club</a></li>
+                        <li><a href="#" class="hover:text-gray-300">Literasi Digital</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Kontak</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-sm"></i>
+                            <span>Jl. Literasi No. 123, Jakarta</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2 text-sm"></i>
+                            <span>info@terasbelajar.id</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2 text-sm"></i>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 terasbelajar.id. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Social -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="social-toggle"
+            class="social-float bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl">
+            <i class="fas fa-share-alt text-xl"></i>
+        </button>
+
+        <div id="social-expand" class="social-expand mt-2">
+            <div class="flex flex-col space-y-2">
+                <a href="#"
+                    class="social-float bg-gradient-to-r from-purple-600 to-pink-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#"
+                    class="social-float bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            let currentIndex = 0;
+
+            // Show first item
+            carouselItems[currentIndex].classList.add('opacity-100');
+            dots[currentIndex].classList.remove('opacity-50');
+            dots[currentIndex].classList.add('opacity-100');
+
+            function showNextItem() {
+                // Hide current item
+                carouselItems[currentIndex].classList.remove('opacity-100');
+                carouselItems[currentIndex].classList.add('opacity-0');
+                dots[currentIndex].classList.add('opacity-50');
+                dots[currentIndex].classList.remove('opacity-100');
+
+                // Move to next item
+                currentIndex = (currentIndex + 1) % carouselItems.length;
+
+                // Show next item
+                carouselItems[currentIndex].classList.remove('opacity-0');
+                carouselItems[currentIndex].classList.add('opacity-100');
+                dots[currentIndex].classList.remove('opacity-50');
+                dots[currentIndex].classList.add('opacity-100');
+            }
+
+            // Auto-rotate every 5 seconds
+            setInterval(showNextItem, 5000);
+
+            // Dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    // Hide current item
+                    carouselItems[currentIndex].classList.remove('opacity-100');
+                    carouselItems[currentIndex].classList.add('opacity-0');
+                    dots[currentIndex].classList.add('opacity-50');
+                    dots[currentIndex].classList.remove('opacity-100');
+
+                    // Move to selected item
+                    currentIndex = index;
+
+                    // Show selected item
+                    carouselItems[currentIndex].classList.remove('opacity-0');
+                    carouselItems[currentIndex].classList.add('opacity-100');
+                    dots[currentIndex].classList.remove('opacity-50');
+                    dots[currentIndex].classList.add('opacity-100');
+                });
+            });
+
+            // Floating social toggle
+            const socialToggle = document.getElementById('social-toggle');
+            const socialExpand = document.getElementById('social-expand');
+
+            socialToggle.addEventListener('click', () => {
+                socialExpand.classList.toggle('active');
+            });
+
+            // Scroll reveal animations
+            ScrollReveal().reveal('.fade-in', {
+                delay: 200,
+                distance: '20px',
+                origin: 'bottom',
+                interval: 100,
+                easing: 'cubic-bezier(0.5, 0, 0, 1)',
+                reset: true
+            });
+
+            // Intersection Observer for fade-in elements
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            const mobileMenu = document.querySelector('.md\\:hidden + div');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
